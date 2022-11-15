@@ -1,4 +1,4 @@
-FILEPATH = "todo_item.txt"
+FILEPATH = "todos.txt"
 
 def get_todo(filepath=FILEPATH) :
     """Read a text file and return
@@ -15,9 +15,9 @@ def write_todos(todos_arg, filepath=FILEPATH):
         file.writelines(todos_arg)
 
 
-print("Hello from outside")
+print("Hello from fuction.py")
 
 if __name__ == "__main__" :
-    print("Hello")
+    print("Hello from __name__ == __main__")
     print(get_todos())
 
