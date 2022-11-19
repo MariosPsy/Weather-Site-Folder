@@ -30,7 +30,7 @@ while True:
     match event:
         case "Add":
             todos = functions.get_todo()
-            todos.append(value["todo"] + "\n") #Append the user input
+            todos.append(value["todo"]+ "\n") #Append the user input
             functions.write_todos(todos)
             window["existing_todo"].update(values=todos)
         case "Edit":
@@ -43,7 +43,7 @@ while True:
             functions.write_todos(todos)
             window['existing_todo'].update(values=todos)
         case "Delete":
-            todo_to_delete = value["existing_todo"][0] + "\n"
+            todo_to_delete = value["existing_todo"][0]
             print("value 0 :", todo_to_delete, "type ", type(todo_to_delete))
             todos = functions.get_todo()
             print("todos list ", todos)
