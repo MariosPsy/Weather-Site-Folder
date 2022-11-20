@@ -21,11 +21,18 @@ while True:
     if tuple[0] == PySimpleGUI.WINDOW_CLOSED :
         break
     elif tuple[0] == "Convert" :
-        float_feet = tuple[1]["feet"]
-        float_feet = float(float_feet.replace(",", "."))
-        float_inches = float(tuple[1]["inches"].replace(",", "."))
-        result_feet = round(((float_feet * 0.3048) + (float_inches * 0.0254)), 4)
-        window["convert_label"].update(value="{} m".format(result_feet))
+        if (tuple[1]["feet"] == "" and tuple[1]["inches"]) == "" :
+            PySimpleGUI.popup("Enter at list one data")
+        elif tuple[1]["feet"] == "" and tuple[1]["inches"] != "" :
+            float_feet = 0
+            float_inches = float(tuple[1]["inches"].replace(",", "."))
+            result_feet = round(((float_feet * 0.3048) + (float_inches * 0.0254)), 4)
+            window["convert_label"].update(value="{} m".format(result_feet))
+        else :
+            float_feet = float(tuple[1]["feet"].replace(",", "."))
+            float_inches = 0
+            result_feet = round(((float_feet * 0.3048) + (float_inches * 0.0254)), 4)
+            window["convert_label"].update(value="{} m".format(result_feet))
     elif tuple[0] == "Exit" :
         break
 
