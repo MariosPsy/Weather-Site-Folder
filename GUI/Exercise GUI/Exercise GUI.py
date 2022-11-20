@@ -5,13 +5,15 @@ feet_input = PySimpleGUI.InputText(key="feet")
 inches_label = PySimpleGUI.Text("Enter inches: ")
 inches_input = PySimpleGUI.InputText(key="inches")
 convert_button = PySimpleGUI.Button("Convert")
+exit_button = PySimpleGUI.Button("Exit")
+convert_label = PySimpleGUI.Text("", key="convert_label")
 
-convert_label = PySimpleGUI.Text("None", key="convert_label")
+PySimpleGUI.theme("Dark")
 
 window = PySimpleGUI.Window("Convertor",
                             layout=([feet_label, feet_input],
                                     [inches_label, inches_input],
-                                    [convert_button, convert_label]))
+                                    [convert_button,exit_button, convert_label]))
 
 while True:
     tuple = window.read()
@@ -21,8 +23,11 @@ while True:
     elif tuple[0] == "Convert" :
         float_feet = tuple[1]["feet"]
         float_feet = float(float_feet.replace(",", "."))
-        result_feet = round((float_feet * 0.3048), 4)
+        float_inches = float(tuple[1]["inches"].replace(",", "."))
+        result_feet = round(((float_feet * 0.3048) + (float_inches * 0.0254)), 4)
         window["convert_label"].update(value="{} m".format(result_feet))
+    elif tuple[0] == "Exit" :
+        break
 
 
 window.close()
