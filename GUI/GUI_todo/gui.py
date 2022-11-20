@@ -1,10 +1,13 @@
 import functions
 import PySimpleGUI
-
+import time
 print("Hi from gui.py")
 
 
+PySimpleGUI.theme("DarkTeal12")
+
 #Create several instances for the window
+clock = PySimpleGUI.Text("", key="clock")
 label = PySimpleGUI.Text("Type in a to-do") #Label for the window
 input_box = PySimpleGUI.InputText(tooltip="Enter todo", key="todo") #Input Box for the user
 add_button = PySimpleGUI.Button("Add") #Button for a action
@@ -19,7 +22,8 @@ exit_button = PySimpleGUI.Button("Exit")
 #Create the window instance
 #------------------------ We put in the layout all the instance that we made
 window = PySimpleGUI.Window("My to - do App",
-                            layout=[[label],
+                            layout=[[clock],
+                                    [label],
                                     [input_box, add_button],
                                     [list_box, edit_button, delete_button],
                                     [exit_button]],
@@ -27,7 +31,8 @@ window = PySimpleGUI.Window("My to - do App",
 #window = PySimpleGUI.Window("My to - do App", layout=([[label], [input_box]]))  ## For example with this syntax we put the in diffrent rows
 
 while True:
-    event, value = window.read()
+    event, value = window.read(timeout=1000) #timeout=1000ms is how often the while loop is execute
+    window["clock"].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
     print("event:",event)
     print("value:",value)
     match event:
@@ -37,25 +42,27 @@ while True:
             functions.write_todos(todos)
             window["existing_todo"].update(values=todos)
         case "Edit":
-            todo_to_edit = value["existing_todo"][0] #Get the string from dictionary
-            new_todo = value["todo"] + "\n" #Get the input string
+            try :
+                todo_to_edit = value["existing_todo"][0] #Get the string from dictionary
+                new_todo = value["todo"] + "\n" #Get the input string
 
-            todos = functions.get_todo()
-            index = todos.index(todo_to_edit)
-            todos[index] = new_todo
-            functions.write_todos(todos)
-            window['existing_todo'].update(values=todos)
+                todos = functions.get_todo()
+                index = todos.index(todo_to_edit)
+                todos[index] = new_todo
+                functions.write_todos(todos)
+                window['existing_todo'].update(values=todos)
+            except IndexError :
+                PySimpleGUI.popup("Please select an item first", font=("Helvetica", 12))
         case "Delete":
-            todo_to_delete = value["existing_todo"][0]
-            #todo_to_delete += "\n"
-            print("value 0 :", todo_to_delete, "type ", type(todo_to_delete))
-            todos = functions.get_todo()
-            #todos = [i.strip("\n") for i in todos]
-            print("todos list ", todos)
-            todos.remove(todo_to_delete)
-            functions.write_todos(todos)
-            window["todo"].update(value="")
-            window['existing_todo'].update(values=todos)
+            try :
+                todo_to_delete = value["existing_todo"][0]
+                todos = functions.get_todo()
+                todos.remove(todo_to_delete)
+                functions.write_todos(todos)
+                window["todo"].update(value="")
+                window['existing_todo'].update(values=todos)
+            except IndexError :
+                PySimpleGUI.popup("Please selecect an item for deleting it")
         case "existing_todo":
             window["todo"].update(value=value["existing_todo"][0])
         case PySimpleGUI.WINDOW_CLOSED :
