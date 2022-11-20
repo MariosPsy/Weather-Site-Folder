@@ -14,12 +14,15 @@ edit_button = PySimpleGUI.Button("Edit")
 
 delete_button = PySimpleGUI.Button("Delete")
 
+exit_button = PySimpleGUI.Button("Exit")
+
 #Create the window instance
 #------------------------ We put in the layout all the instance that we made
 window = PySimpleGUI.Window("My to - do App",
                             layout=[[label],
                                     [input_box, add_button],
-                                    [list_box, edit_button, delete_button]],
+                                    [list_box, edit_button, delete_button],
+                                    [exit_button]],
                             font=("Helvetica",12)) #Here the double brackets is how the instance appear on the window line.
 #window = PySimpleGUI.Window("My to - do App", layout=([[label], [input_box]]))  ## For example with this syntax we put the in diffrent rows
 
@@ -44,15 +47,20 @@ while True:
             window['existing_todo'].update(values=todos)
         case "Delete":
             todo_to_delete = value["existing_todo"][0]
+            #todo_to_delete += "\n"
             print("value 0 :", todo_to_delete, "type ", type(todo_to_delete))
             todos = functions.get_todo()
+            #todos = [i.strip("\n") for i in todos]
             print("todos list ", todos)
             todos.remove(todo_to_delete)
             functions.write_todos(todos)
-            window["existing_todo"].update(value=todos)
+            window["todo"].update(value="")
+            window['existing_todo'].update(values=todos)
         case "existing_todo":
             window["todo"].update(value=value["existing_todo"][0])
         case PySimpleGUI.WINDOW_CLOSED :
+            break
+        case "Exit":
             break
 
 print("Hello before closing the window")
