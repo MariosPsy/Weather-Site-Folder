@@ -6,7 +6,7 @@ inches_label = PySimpleGUI.Text("Enter inches: ")
 inches_input = PySimpleGUI.InputText(key="inches")
 convert_button = PySimpleGUI.Button("Convert")
 exit_button = PySimpleGUI.Button("Exit")
-convert_label = PySimpleGUI.Text("", key="convert_label")
+convert_label = PySimpleGUI.Text(key="convert_label")
 
 PySimpleGUI.theme("Dark")
 
