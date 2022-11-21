@@ -1,8 +1,13 @@
 import functions
 import PySimpleGUI
 import time
-print("Hi from gui.py")
+import os
 
+if not os.path.exists("todos.txt") :
+    with open("todos.txt", "w") as file :
+        pass
+
+print("Hi from gui.py")
 
 PySimpleGUI.theme("DarkTeal12")
 
