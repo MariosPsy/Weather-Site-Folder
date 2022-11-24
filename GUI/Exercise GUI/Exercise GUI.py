@@ -23,10 +23,11 @@ while True:
     elif tuple[0] == "Convert" :
         if (tuple[1]["feet"] == "" and tuple[1]["inches"]) == "" :
             PySimpleGUI.popup("Enter at list one data")
+            continue
         elif tuple[1]["feet"] == "" and tuple[1]["inches"] != "" :
             float_feet = 0
             float_inches = float(tuple[1]["inches"].replace(",", "."))
-        else :
+        elif tuple[1]["feet"] != "" and tuple[1]["inches"] == "" :
             float_feet = float(tuple[1]["feet"].replace(",", "."))
             float_inches = 0
         result_feet = round(((float_feet * 0.3048) + (float_inches * 0.0254)), 4)
