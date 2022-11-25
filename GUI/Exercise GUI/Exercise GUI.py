@@ -1,6 +1,6 @@
 import PySimpleGUI
 
-feet_label = PySimpleGUI.Text("Enter a feet: ")
+feet_label = PySimpleGUI.Text("Enter feets: ")
 feet_input = PySimpleGUI.InputText(key="feet")
 inches_label = PySimpleGUI.Text("Enter inches: ")
 inches_input = PySimpleGUI.InputText(key="inches")
@@ -8,9 +8,9 @@ convert_button = PySimpleGUI.Button("Convert")
 exit_button = PySimpleGUI.Button("Exit")
 convert_label = PySimpleGUI.Text(key="convert_label")
 
-PySimpleGUI.theme("Dark")
+PySimpleGUI.theme("LightGreen5")
 
-window = PySimpleGUI.Window("Convertor",
+window = PySimpleGUI.Window("Feet and Inches Convertor",
                             layout=([feet_label, feet_input],
                                     [inches_label, inches_input],
                                     [convert_button,exit_button, convert_label]))
