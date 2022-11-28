@@ -1,11 +1,51 @@
 import requests
+import smtplib, ssl
+
+def email_senter(message) :
+    host = "smtp.gmail.com"  # Default arguments for gmail
+    port = 465
+
+    username = "marious.ps@gmail.com"
+    password = "ehopwycdwiekempo"
+
+    receiver = "marious.ps@gmail.com"
+
+    # Create a secure contex
+    contex = ssl.create_default_context()
+
+
+    with smtplib.SMTP_SSL(host, port, context=contex) as server:
+        server.login(username, password)
+        server.sendmail(username, receiver, message)
 
 api = "b2c2b8a40ae144a28bf4a74f4390bdfc"
-url = "https://www.xtypos.gr/%CE%BA%CE%B1%CF%84%CE%B7%CE%B3%CE%BF%CF%81%CE%AF%CE%B1/%ce%b4%ce%ae%ce%bc%ce%bf%ce%b9-%ce%b1%cf%84%cf%84%ce%b9%ce%ba%ce%ae%cf%82/%ce%b4%ce%ae%ce%bc%ce%bf%cf%82-%ce%b7%cf%81%ce%b1%ce%ba%ce%bb%ce%b5%ce%af%ce%bf%cf%85-%ce%b1%cf%84%cf%84%ce%b9%ce%ba%ce%ae%cf%82/"
+url = """https://newsapi.org/v2/everything?q=tesla&from=2022-10-28&sortBy=publishedAt&apiKey=b2c2b8a40ae144a28bf4a74f4390bdfc"""
 
 requests = requests.get(url)
-content = requests.text
+content = requests.json()
 print(content)
+
+message = host = "smtp.gmail.com" #Default arguments for gmail
+port = 465
+
+username = "marious.ps@gmail.com"
+password = "ehopwycdwiekempo"
+
+receiver = "marious.ps@gmail.com"
+
+#Create a secure contex
+contex = ssl.create_default_context()
+
+message = """Subject: Email News for Tesla""" + "\n"
+
+for article in content["articles"] :
+    # print(article["title"])
+    # print(article["description"])
+    message += article["title"] + "\n" + article["description"] + "\n" + "\n"
+
+print(message)
+
+email_senter(message)
 
 
 
