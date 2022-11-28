@@ -42,4 +42,22 @@ for filepath in filepaths :
         pdf.cell(w=30, h=8, txt=str(row["price_per_unit"]), border=1)
         pdf.cell(w=30, h=8, txt=str(row["total_price"]), border=1, ln=1)
 
+    #Create the total price
+    total = df["total_price"].sum()
+    pdf.cell(w=30, h=8, border=1)  # We dont put ln=1 because we want to be at the same line all the cells above
+    pdf.cell(w=70, h=8, border=1)
+    pdf.cell(w=30, h=8, border=1)
+    pdf.cell(w=30, h=8, border=1)
+    pdf.cell(w=30, h=8, txt=str(total), border=1, ln=1)
+
+    #Final sentences
+    pdf.set_font(family="Times", size=18, style="B")
+    pdf.set_text_color(0,0,0)
+    pdf.cell(w=30, h=10, txt=f"The totlal price is : {total}", ln=1)
+
+    #Add company name and logo
+    pdf.set_font(family="Times", size=18, style="B")
+    pdf.cell(w=40, h=10, txt="Python How")
+    pdf.image("pythonhow.png", w=10)
+
     pdf.output("Excel_PDF_{}.pdf".format(invoice_nb))
