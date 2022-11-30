@@ -1,8 +1,9 @@
 import requests
+import api
 
-def image_downloader(url) :
-    response = requests.get(url)
-    with open("image.jpg", "wb") as file :
-        file.write(response.content)
+print("\n" + "Hello from image downloader" + "\n")
 
-image_downloader("https://api.nasa.gov/assets/img/general/apod.jpg")
+image_url = api.content["hdurl"]
+response = requests.get(image_url)
+with open("image.jpg", "wb") as file :
+    file.write(response.content)
