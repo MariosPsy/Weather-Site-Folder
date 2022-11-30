@@ -1,0 +1,8 @@
+1. Create Glask object
+app = Flask("a name")
+
+2. Create a connection for the home page
+@app.route("/home")
+For calling the page first we must create the templates folder
+Then put inside the html page
+Last return it from the python script from the function
