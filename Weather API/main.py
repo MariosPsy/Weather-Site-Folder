@@ -14,7 +14,7 @@ def home():
 def about(station, date):
     path = "data_small/TG_STAID" + str(station).zfill(6) + ".txt"
     df = pandas.read_csv(path, skiprows=20, parse_dates=["    DATE"])
-    temperature = df.loc[]
+    temperature = df.loc[df["    DATE"]== date]["   TG"].squeeze() / 10
     return {"station": station,
             "date": date,
             "temperature": temperature}
