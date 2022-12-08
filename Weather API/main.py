@@ -22,5 +22,22 @@ def about(station, date):
             "temperature": temperature}
 
 
+@app.route("/api/v1/<station>")
+def subpage(station):
+    path = "data_small/TG_STAID" + str(station).zfill(6) + ".txt"
+    certain_station = pandas.read_csv(path, skiprows=20, parse_dates=["    DATE"])
+    return certain_station.to_dict(orient="records")
+
+@app.route("/api/v1/yearly/<station>/<year>")
+def subpage2(station, year):
+    path = "data_small/TG_STAID" + str(station).zfill(6) + ".txt"
+    certain_station = pandas.read_csv(path, skiprows=20)
+    certain_station["    DATE"] = certain_station["    DATE"].astype(str)
+    certain_year = certain_station[certain_station["    DATE"].str.startswith(str(year))]
+    print(certain_year)
+    return certain_year.to_dict(orient="records")
+
+
+
 if __name__ == "__main__" :
     app.run(debug=True)
