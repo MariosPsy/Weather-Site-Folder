@@ -18,19 +18,22 @@ streamlit.subheader(f"{option} for the next {days} days in {place}")
 
 # Create the data for temperature and sky
 if place: # This syntax mean that "place" variable has a value
-    returns, filtered_data = get_data(place, days, option)
+    try :
+        returns, filtered_data = get_data(place, days, option)
 
-    # Create a temperature plot
-    if option == "Temperature" :
-        dates = [dict["dt_txt"] for dict in filtered_data]
-        temperature = returns
-        figure = px.line(x=dates, y=temperature,
-                         labels={"x": "Date", "y": "Temperatuure (C)"})
-        streamlit.plotly_chart(figure)
+        if option == "Temperature" :
+            dates = [dict["dt_txt"] for dict in filtered_data]
+            temperature = [c/10 for c in returns]
+            figure = px.line(x=dates, y=temperature,
+                             labels={"x": "Date", "y": "Temperatuure (C)"})
+            streamlit.plotly_chart(figure)
 
-    if option == "Sky" :
-        sky_conditions = returns
-        path = ["Weather Site/images/" + sky + ".png" for sky in sky_conditions]
-        print(path)
-        streamlit.image(path, width=115)
+        if option == "Sky" :
+            sky_conditions = returns
+            path = ["Weather Site/images/" + sky + ".png" for sky in sky_conditions]
+            print(path)
+            streamlit.image(path, width=115)
 
+    except KeyError :
+        streamlit.image("Weather Site/images/error.jpg")
+        streamlit.write("City don't found")
