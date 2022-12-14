@@ -23,4 +23,3 @@ figure = px.line(x=dates, y=temperatures,
 streamlit.plotly_chart(figure)
 
 
-
