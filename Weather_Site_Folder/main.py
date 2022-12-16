@@ -30,10 +30,10 @@ if place: # This syntax mean that "place" variable has a value
 
         if option == "Sky" :
             sky_conditions = returns
-            path = ["Weather Site/images/" + sky + ".png" for sky in sky_conditions]
+            path = ["Weather_Site_Folder/images/" + sky + ".png" for sky in sky_conditions]
             print(path)
             streamlit.image(path, width=115)
 
     except KeyError :
-        streamlit.image("Weather Site/images/error.jpg")
+        streamlit.image("Weather_Site_Folder/images/error.jpg")
         streamlit.write("City don't found")
